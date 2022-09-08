@@ -24,7 +24,7 @@ const data = [
 
 {
 
-  // localStorage.clear()
+//   localStorage.clear()
 
   //функция добавления контакта в объект с контактами data
   const addContactData = (contact) => {
@@ -336,7 +336,7 @@ const data = [
       const newContact = Object.fromEntries(formData)
 
       const formStor = setStorage('phonebook', newContact);
-      let last = formStor.length; console.log(last);
+      let last = formStor.length; 
 
       addContactPage(formStor[last - 1], list)
       // addContactData(newContact)
@@ -374,14 +374,22 @@ const data = [
     )
 
     //функционал
-    // const storageData = setStorage('phonebook', data)[0]; //запись конктатов из Data в Localstorage
-    const firstStor = getStorage('phonebook');
+    
+    let firstStor = getStorage('phonebook');
+	
+	if (firstStor.length == 0) {
+		data.forEach(item =>{
+			setStorage('phonebook', item); //запись конктатов из Data в Localstorage
+		});	
+		firstStor = getStorage('phonebook');
+	}
+	
+	console.log(data)
     // const allRow = renderContacts(list, data) //присваиват создание таблицы и заполнение её из массива контактов
     const allRow = renderContacts(list, firstStor) //присваиват создание таблицы и заполнение её из массива контактов DATA
 
     const { closeModal } = modalControl(btnAdd, formOverlay) //присваивает функцию закрытия и открытия модального окна по клику
 
-    
     hoverRow(allRow, logo); //функция для показа номера тел в шапке при наведении на него в таблице
     deleteControl(btnDel, list) //вызывает фунцию добавления столбца с иконками удаления строк
     formControl(form, list, closeModal) //функция с событиями формы модального окна при срабатывании submit
