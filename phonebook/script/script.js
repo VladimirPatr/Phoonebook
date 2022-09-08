@@ -362,6 +362,19 @@ const data = [
 
     return arrStorage;     
   };
+  const firsLoad = () => {
+	 let firstItems =  getStorage('phonebook');
+
+	if (firstItems.length == 0) {
+		data.forEach(item =>{
+			setStorage('phonebook', item); //запись конктатов из Data в Localstorage
+		});	
+		
+	};
+	firstItems = getStorage('phonebook');
+		console.log('xxx', firstItems)
+		return firstItems
+  };
 
   //функция запуска всех функций INIT
   const init = (selectorApp, title) => {
@@ -375,16 +388,10 @@ const data = [
 
     //функционал
     
-    let firstStor = getStorage('phonebook');
+    let firstStor = firsLoad();
+	console.log('first', firstStor)
+
 	
-	if (firstStor.length == 0) {
-		data.forEach(item =>{
-			setStorage('phonebook', item); //запись конктатов из Data в Localstorage
-		});	
-		firstStor = getStorage('phonebook');
-	}
-	
-	console.log(data)
     // const allRow = renderContacts(list, data) //присваиват создание таблицы и заполнение её из массива контактов
     const allRow = renderContacts(list, firstStor) //присваиват создание таблицы и заполнение её из массива контактов DATA
 
