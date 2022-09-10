@@ -24,7 +24,7 @@ const data = [
 
 {
 
-//   localStorage.clear()
+  localStorage.clear()
 
   //функция добавления контакта в объект с контактами data
   const addContactData = (contact) => {
@@ -362,19 +362,31 @@ const data = [
 
     return arrStorage;     
   };
-  const firsLoad = () => {
-	 let firstItems =  getStorage('phonebook');
 
-	if (firstItems.length == 0) {
-		data.forEach(item =>{
-			setStorage('phonebook', item); //запись конктатов из Data в Localstorage
-		});	
+  //функция записи Data в Localstorage при необходимости
+  // const firsLoad = () => {
+	//  let firstItems =  getStorage('phonebook');
+
+	// if (firstItems.length == 0) {
+	// 	data.forEach(item =>{
+	// 		setStorage('phonebook', item); //запись конктатов из Data в Localstorage
+	// 	});	
 		
-	};
-	firstItems = getStorage('phonebook');
-		console.log('xxx', firstItems)
-		return firstItems
-  };
+	// };
+	// firstItems = getStorage('phonebook');
+	// 	console.log('xxx', firstItems)
+	// 	return firstItems
+  // };
+
+  const firsLoad = () => {
+    	data.forEach(item =>{
+    		setStorage('phonebook', item)
+      });	
+       let firstItems = getStorage('phonebook');
+		    return firstItems
+    	
+    };
+  
 
   //функция запуска всех функций INIT
   const init = (selectorApp, title) => {
@@ -389,7 +401,6 @@ const data = [
     //функционал
     
     let firstStor = firsLoad();
-	console.log('first', firstStor)
 
 	
     // const allRow = renderContacts(list, data) //присваиват создание таблицы и заполнение её из массива контактов
@@ -404,7 +415,6 @@ const data = [
    
   }
   window.addEventListener('storage', e => {
-
     document.querySelector('#app').innerHTML = '';
    init('#app', 'Владимир')
   })
